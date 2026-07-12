@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CNS Resilience and MS Severity — Cathy Liu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: Georgia, serif; max-width: 720px; margin: 0 auto;
+         padding: 2.5rem 1.5rem 4rem; line-height: 1.65; color: #222; background: #fff; }
+  h1, h2 { font-family: -apple-system, system-ui, sans-serif; }
+  h1 { font-size: 1.45rem; margin-bottom: .2rem; }
+  .byline { font-family: system-ui, sans-serif; font-size: .85rem; color: #777; margin-bottom: 2rem; }
+  h2 { font-size: 1.1rem; margin-top: 2.5rem; border-bottom: 1px solid #eee; padding-bottom: .3rem; }
+  .note { background: #f6f6f4; border-left: 3px solid #999; padding: .8rem 1rem;
+          font-family: system-ui, sans-serif; font-size: .85rem; color: #444; margin: 1.2rem 0; }
+  figure { margin: 1.2rem 0; }
+  figure img { max-width: 100%; display: block; }
+  figcaption { font-family: system-ui, sans-serif; font-size: .78rem; color: #777; margin-top: .4rem; }
+  a { color: #2255aa; }
+  .meta { font-family: system-ui, sans-serif; font-size: .8rem; color: #888;
+          margin-top: 3rem; border-top: 1px solid #eee; padding-top: 1rem; }
+  .tag { display: inline-block; font-family: system-ui, sans-serif; font-size: .75rem;
+         background: #eef2f8; color: #2255aa; padding: .15rem .5rem;
+         border-radius: 3px; margin-right: .3rem; }
+  .highlight  { background: #fff5f5; border-left: 3px solid #c0392b; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+  .highlight2 { background: #fdf2f8; border-left: 3px solid #8e44ad; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+  .highlight3 { background: #f0f4ff; border-left: 3px solid #2980b9; padding: .6rem 1rem;
+                font-family: system-ui, sans-serif; font-size: .88rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<h1>CNS Resilience Across Brain Regions: Why Brainstem and Cerebellar MS Lesions Drive the Most Disability</h1>
+<div class="byline">Cathy Liu · cathyliu014@gmail.com · personal exploratory project, July 2026</div>
+
+<span class="tag">multiple sclerosis</span>
+<span class="tag">CNS resilience</span>
+<span class="tag">DYSF-ZNF638</span>
+<span class="tag">myelin</span>
+<span class="tag">BDNF</span>
+<span class="tag">severity genetics</span>
+<span class="tag">Allen Brain Atlas</span>
+<span class="tag">Python</span>
+
+<p style="margin-top:1.2rem">
+The
+<a href="https://msgenes.ucsf.edu/" target="_blank">Oksenberg lab</a>
+has spent decades building the genetic and functional genomic framework for understanding
+multiple sclerosis — from the HLA associations that explain over 10% of MS heritability,
+to the 200+ susceptibility loci identified through GWAS, to the current push toward
+understanding why genetic risk converts to different levels of disability in different people.
+</p>
+<p>
+The 2023 <em>Nature</em> paper from the IMSGC (with Oksenberg as a key contributor) reframed
+a fundamental question: while immune genetics explains who gets MS, it does not explain
+how fast the disease progresses. The identification of DYSF-ZNF638 as the first MS
+severity locus — with heritability enriched in CNS rather than immune tissue — points to
+CNS resilience as the key. I wanted to ask the next question from the expression side: do
+brain regions that drive the most disability in MS also have the lowest neuroprotective
+reserve relative to their myelin load?
+</p>
+
+<div class="note">
+<strong>What this is.</strong> Personal exploratory analysis, not novel research.
+Gene expression data from the
+<a href="https://mouse.brain-map.org/" target="_blank">Allen Mouse Brain Atlas</a>
+ISH experiments, July 2026. Genes: Nefl (exp. 73512198), Plp1 (exp. 75496529),
+Mag (exp. 69736418), Gfap (exp. 100098224), Bdnf (exp. 77003265). Brain structure IDs:
+Ctx=453, BS=771, Cereb=512, Thal=549, Hipp=382, CP=247, CC=484.
+Figure 2 is a schematic based on IMSGC (2023) <em>Nature</em> — not a re-analysis
+of their data.
+</div>
+
+<h2>Brainstem and cerebellum: highest myelin load, lowest neuroprotective reserve</h2>
+
+<figure>
+  <img src="ms_resilience.svg?v=1"
+       alt="Bar chart of Plp1 vs Bdnf expression by brain region, sorted by ratio">
+  <figcaption>Plp1 (myelin gene, solid bars) vs. Bdnf (neuroprotective factor, light bars)
+  expression density across 7 brain regions, sorted by Plp1/Bdnf ratio. Allen Mouse Brain
+  Atlas ISH, July 2026. Brainstem and cerebellum (highlighted) have the highest
+  myelin-to-neuroprotection imbalance.
+  </figcaption>
+</figure>
+
+<div class="highlight">
+<strong>Cerebellum has a Plp1/Bdnf ratio of 41× — 8× higher than hippocampus (4.8×)
+and 24× higher than corpus callosum (1.7×).</strong>
+Plp1 encodes proteolipid protein 1, the most abundant CNS myelin protein, and its
+expression density is a proxy for myelin content and oligodendrocyte density. Bdnf
+supports oligodendrocyte survival, promotes remyelination, and protects axons from
+inflammatory damage. A region with high Plp1 but near-zero Bdnf (cerebellum: 0.0017,
+brainstem: 0.0040) has substantial myelin to lose but minimal molecular capacity for
+neuroprotective repair — exactly the profile you would predict for a region where lesions
+cause disproportionate disability and where recovery after relapses is poorest.
+</div>
+
+<div class="highlight3">
+<strong>Corpus callosum has the highest Bdnf expression (0.032) of any region
+examined — and is the primary MS lesion site.</strong>
+This seems counterintuitive, but it illustrates the distinction the Oksenberg lab's
+2023 paper makes explicit: lesion <em>location</em> is driven by immune genetics (HLA,
+immune cell trafficking), while disability <em>accumulation</em> is driven by CNS
+resilience. The corpus callosum is attacked preferentially by immune mechanisms,
+but its high Bdnf may partially explain why periventricular lesions, despite being
+frequent and visible on MRI, often convert to disability more slowly than a single
+brainstem or cerebellar lesion of equivalent volume.
+</div>
+
+<div class="highlight2">
+<strong>The DYSF-ZNF638 severity locus may act by modifying how well individual
+oligodendrocytes and axons survive and repair after immune attack.</strong>
+Dysferlin (DYSF) is a membrane repair protein. In the CNS, its role in
+oligodendrocyte and axonal membrane integrity after inflammatory damage would
+have the largest effect in regions with the least compensatory Bdnf-driven repair
+— precisely brainstem and cerebellum. This predicts that the DYSF risk allele should
+have larger functional effects in cerebellar-progressive MS subtypes, a testable
+hypothesis the lab's MS-EPIC cohort data could address.
+</div>
+
+<h2>Two genetic programs: susceptibility vs. severity</h2>
+
+<figure>
+  <img src="ms_severity_model.svg?v=1"
+       alt="Schematic of immune susceptibility vs CNS severity genetic pathways in MS">
+  <figcaption>Conceptual model separating the immune genetics of MS susceptibility
+  (HLA-DRB1*15:01 + 200 SNPs) from the CNS genetics of severity (DYSF-ZNF638 locus,
+  IMSGC 2023). Regional expression differences in myelin content and neuroprotective
+  reserve interact with the CNS resilience genetic background to determine disability
+  accumulation.
+  </figcaption>
+</figure>
+
+<h2>Connection to the lab's work</h2>
+<ul>
+<li>
+<strong>CNS resilience and the severity locus:</strong>
+The DYSF-ZNF638 finding opens the question of which molecular pathway links this locus
+to regional differences in repair capacity. I'd be interested to contribute to analyses
+asking whether Dysf expression in oligodendrocytes or astrocytes correlates with remyelination
+efficiency across lesion types — particularly in the lab's existing multi-omics or
+methylation datasets.
+</li>
+<li>
+<strong>Biomarkers and disease progression:</strong>
+The lab's work on neurofilament light (NfL) as a progression biomarker, and the
+2024 autoantibody signature finding (years before symptom onset), suggests a growing
+focus on the preclinical and early-progressive phase of MS. I'd be glad to contribute
+computational analysis for longitudinal biomarker work connecting genetic severity
+stratification to NfL trajectories.
+</li>
+<li>
+On the wet lab side, I have experience with molecular biology techniques including
+Western blot, ELISA, cell culture, flow cytometry, and fluorescence microscopy.
+I'm comfortable contributing to both computational and bench aspects of the work.
+</li>
+</ul>
+
+<h2>Methods</h2>
+<p>
+Gene expression data from the
+<a href="https://mouse.brain-map.org/" target="_blank">Allen Mouse Brain Atlas</a>
+via the ABA RMA API, July 2026. ISH experiments: Nefl (73512198), Plp1 (75496529),
+Mag (69736418), Gfap (100098224), Bdnf (77003265). Seven brain structure IDs queried
+via StructureUnionize model. Expression density = fraction of pixels above ISH
+threshold. Figure 2 is a schematic based on International Multiple Sclerosis Genetics
+Consortium (2023) <em>Nature</em> 619:323–331.
+Figures: pure Python SVG. Code:
+<a href="fetch_data.py">fetch_data.py</a>, <a href="make_figures.py">make_figures.py</a>.
+Raw data: <a href="ms_genes.tsv">ms_genes.tsv</a>.
+</p>
+
+<div class="meta">
+Cathy Liu — cathyliu014@gmail.com | 415-216-3799<br>
+<a href="https://liuzhitong330.github.io/tvb-llm-robust-neurostim/" target="_blank">Epilepsy neurostimulation project</a> ·
+<a href="https://arxiv.org/abs/2606.04339" target="_blank">arXiv:2606.04339</a>
+</div>
+
+</body>
+</html>
